@@ -6,9 +6,10 @@ const purchaseRoute = express.Router();
 
 //3.1 Crie a rota POST /purchases
 
-purchaseRoute.post("/new-purchase/", async (req, res) => {
+purchaseRoute.post("/new-purchase/:albumId", async (req, res) => {
   try {
-    const newPurchase = await PurchaseModel.create(req.body);
+    const {albumId} = req.params 
+    const newPurchase = await PurchaseModel.create({...req.body, album: albumId});
 
     return res.status(201).json(newPurchase);
   } catch (error) {
@@ -18,7 +19,7 @@ purchaseRoute.post("/new-purchase/", async (req, res) => {
 });
 
 //3.2 Crie a rota GET /purchases/:purchaseId
-purchaseRoute.get("/onePurchase/:purchaseId", async (rq, res) => {
+purchaseRoute.get("/one-purchase/:purchaseId", async (req, res) => {
   try {
     const { purchaseId } = req.params;
     const purchase = await PurchaseModel.findById(purchaseId).populate("album");

@@ -5,7 +5,7 @@ import PurchaseModel from "../models/purchase.model.js";
 const albumRoute = express.Router();
 
 //2.1 Crie a rota POST /albums
-albumRoute.post("/creat-album", async (req, res) => {
+albumRoute.post("/create-album", async (req, res) => {
   try {
     const newalbum = await AlbumModel.create(req.body);
     return res.status(201).json(newalbum);
@@ -27,7 +27,7 @@ albumRoute.get("/all-albuns", async (req, res) => {
 });
 
 //2.3 Crie a rota GET /albums/:albumId
-albumRoute.get("/oneAlbum/:albumId", async (req, res) => {
+albumRoute.get("/one-album/:albumId", async (req, res) => {
   try {
     const { albumId } = req.params;
     const album = await AlbumModel.findById(albumId);
@@ -40,7 +40,7 @@ albumRoute.get("/oneAlbum/:albumId", async (req, res) => {
 
 //2.4 Crie a rota PUT /albums/:albumId
 
-albumRoute.put("/edit/albumId", async (req, res) => {
+albumRoute.put("/edit/:albumId", async (req, res) => {
   try {
     const { albumId } = req.params;
     const updatedAlbum = await AlbumModel.findByIdAndUpdate(
@@ -63,7 +63,7 @@ albumRoute.delete("/delete/:albumId", async (req, res) => {
         if(!deletedAlbum){
             return res.status(400).json({msg:"Don't find"})
         }
-    return res.status(200).json(deletedAlbum);
+    return res.status(204).json();
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);

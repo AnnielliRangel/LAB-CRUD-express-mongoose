@@ -2,11 +2,12 @@ import {Schema, model} from "mongoose"
 
 const albumSchema = new Schema (
     {
-        performer: {String},
-        title: {String},
-        cost: {Number}
+        performer: {type: String},
+        title: {type: String},
+        cost: {type: Number}
 
-    }
+    },
+    {timestamps:true}
 )
 
 const AlbumModel = model("Album", albumSchema)
